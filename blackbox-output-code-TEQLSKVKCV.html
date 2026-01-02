@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Kelas 10 DKV</title>
+    <style>
+        /* CSS untuk desain colorful, elegan, mewah, dengan animasi ringan dan responsive */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
+            background-attachment: fixed;
+            color: #333;
+            animation: bgShift 10s infinite alternate;
+        }
+        @keyframes bgShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: slideIn 1s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        nav {
+            background: #333;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #f9ca24;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .hidden { display: none; }
+        form {
+            margin-bottom: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #4ecdc4;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #45b7d1;
+        }
+        .gallery-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+        }
+        .like-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background: #f2f2f2;
+        }
+        @media (max-width: 768px) {
+            nav a { display: block; margin: 10px 0; }
+            .gallery-item { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Website Kelas 10 DKV</h1>
+        <p>Selamat Datang di Dunia Desain dan Kreasi!</p>
+    </header>
+    <nav>
+        <a href="#" onclick="showPage('login')">Login</a>
+        <a href="#" onclick="showPage('dashboard')">Dashboard</a>
+        <a href="#" onclick="showPage('gallery')">Galeri Karya</a>
+        <a href="#" onclick="showPage('schedule')">Materi & Jadwal</a>
+        <a href="#" onclick="showPage('attendance')">Absensi</a>
+        <a href="#" onclick="showPage('finance')">Keuangan</a>
+        <a href="#" onclick="showPage('structure')">Struktur Kelas</a>
+    </nav>
+    <div class="container">
+        <!-- Login Page -->
+        <div id="login" class="page">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="text" id="username" placeholder="Username atau Nama Lengkap" required>
+                <input type="password" id="password" placeholder="Password (hanya untuk admin)">
+                <button type="submit">Login</button>
+            </form>
+            <p id="loginMsg"></p>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="page hidden">
+            <h2>Dashboard</h2>
+            <p>Jumlah Siswa: 6</p>
+            <p>Kehadiran Hari Ini: <span id="attendanceToday">0</span></p>
+            <p>Agenda Terdekat: Rapat Kelas Minggu Depan</p>
+        </div>
+
+        <!-- Galeri Karya -->
+        <div id="gallery" class="page hidden">
+            <h2>Galeri Karya DKV</h2>
+            <form id="uploadForm" class="hidden">
+                <input type="text" id="studentName" placeholder="Nama Siswa" required>
+                <input type="text" id="title" placeholder="Judul Karya" required>
+                <input type="text" id="subject" placeholder="Tugas dari Pelajaran" required>
+                <input type="text" id="mentor" placeholder="Pembimbing" required>
+                <input type="file" id="image" accept="image/*" required>
+                <button type="submit">Unggah</button>
+            </form>
+            <div id="galleryList"></div>
+        </div>
+
+        <!-- Materi & Jadwal -->
+        <div id="schedule" class="page hidden">
+            <h2>Materi & Jadwal</h2>
+            <div id="scheduleContent"></div>
+        </div>
+
+        <!-- Absensi -->
+        <div id="attendance" class="page hidden">
+            <h2>Absensi Digital</h2>
+            <form id="attendanceForm" class="hidden">
+                <select id="studentSelect">
+                    <option>Muhammad Labib Prasetyo</option>
+                    <option>Muhammad Bakhrul Ulum</option>
+                    <option>Nur Azizah</option>
+                    <option>Dwi Enjelyna</option>
+                    <option>Naura Delima</option>
+                    <option>Reva Cahya Mawaddah</option>
+                </select>
+                <select id="status">
+                    <option>Hadir</option>
+                    <option>Izin</option>
+                    <option>Sakit</option>
+                    <option>Alpha</option>
+                    <option>Kendala Lain</option>
+                </select>
+                <input type="text" id="otherReason" placeholder="Jika Kendala Lain">
+                <button type="submit">Simpan</button>
+            </form>
+            <div id="attendanceList"></div>
+            <h3>Rekap Bulanan</h3>
+            <div id="monthlyRecap"></div>
+        </div>
+
+        <!-- Keuangan -->
+        <div id="finance" class="page hidden">
+            <h2>Keuangan Kelas</h2>
+            <form id="financeForm" class="hidden">
+                <input type="number" id="amount" placeholder="Jumlah" required>
+                <select id="type">
+                    <option>Pemasukan</option>
+                    <option>Pengeluaran</option>
+                </select>
+                <input type="text" id="description" placeholder="Deskripsi" required>
+                <button type="submit">Simpan</button>
+            </form>
+            <p>Total Saldo: Rp <span id="totalBalance">0</span></p>
+            <div id="financeList"></div>
+        </div>
+
+        <!-- Struktur Kelas -->
+        <div id="structure" class="page hidden">
+            <h2>Struktur Kelas</h2>
+            <ul>
+                <li>Wali Kelas: Pak Wafi</li>
+                <li>Ketua: Muhammad Labib Prasetyo</li>
+                <li>Wakil Ketua: Muhammad Bakhrul Ulum</li>
+                <li>Sekretaris: Nur Azizah</li>
+                <li>Bendahara: Dwi Enjelyna</li>
+                <li>Anggota: Naura Delima, Reva Cahya Mawaddah</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Variabel global
+        let isAdmin = false;
+        let currentUser = '';
+        const adminUser = 'labib prasetyo20';
+        const adminPass = 'labib10dkv123';
+        const students = ['Muhammad Labib Prasetyo', 'Muhammad Bakhrul Ulum', 'Nur Azizah', 'Dwi Enjelyna', 'Naura Delima', 'Reva Cahya Mawaddah'];
+
+        // Fungsi untuk menampilkan halaman
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+            if (pageId === 'schedule') loadSchedule();
+            if (pageId === 'attendance') loadAttendance();
+            if (pageId === 'finance') loadFinance();
+            if (pageId === 'gallery') loadGallery();
+        }
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            if (user === adminUser && pass === adminPass) {
+                isAdmin = true;
+                currentUser = 'Admin';
+                document.getElementById('loginMsg').textContent = 'Login sebagai Admin berhasil!';
+                showAdminFeatures();
+            } else if (students.includes(user)) {
+                isAdmin = false;
+                currentUser = user;
+                document.getElementById('loginMsg').textContent = 'Login sebagai Siswa berhasil!';
+                showStudentFeatures();
+            } else {
+                document.getElementById('loginMsg').textContent = 'Login gagal!';
+            }
+        });
+
+        function showAdminFeatures() {
+            document.getElementById('uploadForm').classList.remove('hidden');
+            document.getElementById('attendanceForm').classList.remove('hidden');
+            document.getElementById('financeForm').classList.remove('hidden');
+        }
+
+        function showStudentFeatures() {
+            // Akses terbatas, hanya lihat
+        }
+
+        // Dashboard
+        function updateDashboard() {
+            const attendance = JSON.parse(localStorage.getItem('attendance') || '[]');
+            const today = new Date().toDateString();
+            const todayAttendance = attendance.filter(a => a.date === today).length;
+            document.getElementById('attendanceToday').textContent = todayAttendance;
+        }
+        updateDashboard();
+
+        // Galeri
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const file = document.getElementById('image').files[0];
+            const reader = new FileReader();
+            reader.onload = function() {
+                const gallery = JSON.parse(localStorage.getItem('gallery') || '[]');
+                gallery.push({
+                    name: document.getElementById('studentName').value,
+                    title: document.getElementById('title').value,
+                    subject: document.getElementById('subject').value,
+                    mentor: document.getElementById('mentor').value,
+                    date: new Date().toLocaleDateString(),
+                    image: reader.result,
+                    likes: 0
+                });
+                localStorage.setItem('gallery', JSON.stringify(gallery));
+                loadGallery();
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function loadGallery() {
+            const gallery = JSON.parse(localStorage.getItem('gallery') || '[]');
+            const list = document.getElementById('galleryList');
+            list.innerHTML = '';
+            gallery.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                div.innerHTML = `
+                    <img src="${item.image}" width="150" height="150"><br>
+                    Nama: ${item.name}<br>
+                    Judul: ${item.title}<br>
+                    Pelajaran: ${item.subject}<br>
+                    Pembimbing: ${item.mentor}<br>
+                    Tanggal: ${item.date}<br>
+                    Likes: ${item.likes}
+                    <button class="like-btn" onclick="likeItem(${index})">Like</button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function likeItem(index) {
+            const gallery = JSON.parse(localStorage.getItem('gallery') || '[]');
+            gallery[index].likes++;
+            localStorage.setItem('gallery', JSON.stringify(gallery));
+            loadGallery();
+        }
+
+        // Jadwal
+        function loadSchedule() {
+            const days = {
+                'Saturday': ['Pemrograman Dasar', 'PJOK', 'Matematika', 'Sejarah'],
+                'Sunday': ['Matematika', 'Sistem Computer', 'Teknik Pengolahan Audio Video', 'Teknik Pengolahan Audio Video'],
+                'Monday': ['Bhs Indo', 'PAI', 'PKN', 'Bhs Inggris'],
+                'Tuesday': ['Seni Rupa', 'Informatika', 'Dasar Desain Grafis', 'Al Quran'],
+                'Wednesday': ['Dasar TKJ dan Telekomunikasi', 'Dasar TKJ dan Telekomunikasi', 'Bhs Inggris', 'IPAS'],
+                'Thursday': ['Seni Rupa', 'Bhs Indo', 'IPAS', 'PAI']
+            };
+            const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+            const content = document.getElementById('scheduleContent');
+            content.innerHTML = `<h3>Jadwal Hari ${today}</h3><ul>${days[today]?.map(s => `<li>${s}</li>`).join('') || '<li>Tidak ada jadwal</li>'}</ul>`;
+        }
+
+        // Absensi
+        document.getElementById('attendanceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const attendance = JSON.parse(localStorage.getItem('attendance') || '[]');
+            attendance.push({
+                student: document.getElementById('studentSelect').value,
+                status: document.getElementById('status').value,
+                reason: document.getElementById('otherReason').value,
+                date: new Date().toDateString()
+            });
+            localStorage.setItem('attendance', JSON.stringify(attendance));
+            loadAttendance();
+            updateDashboard();
+        });
+
+        function loadAttendance() {
+            const attendance = JSON.parse(localStorage.getItem('attendance') || '[]');
+            const list = document.getElementById('attendanceList');
+            list.innerHTML = '<table><tr><th>Siswa</th><th>Status</th><th>Alasan</th><th>Tanggal</th></tr>' +
+                attendance.map(a => `<tr><td>${a.student}</td><td>${a.status}</td><td>${a.reason}</td><td>${a.date}</td></tr>`).join('') + '</table>';
+            // Rekap bulanan sederhana
+            const month = new Date().getMonth();
+            const monthly = attendance.filter(a => new Date(a.date).getMonth() === month);
+            const recap = {};
+            monthly.forEach(a => recap[a.status] = (recap[a.status] || 0) + 1);
+            document.getElementById('monthlyRecap').innerHTML = Object.entries(recap).map(([k,v]) => `${k}: ${v}`).join(', ');
+        }
+
+        // Keuangan
+        document.getElementById('financeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const finance = JSON.parse(localStorage.getItem('finance') || '[]');
+            const amount = parseInt(document.getElementById('amount').value);
+            finance.push({
+                amount: document.getElementById('type').value === 'Pemasukan' ? amount : -amount,
+                description: document.getElementById('description').value,
+                date: new Date().toLocaleDateString()
+            });
+            localStorage.setItem('finance', JSON.stringify(finance));
+            loadFinance();
+        });
+
+        function loadFinance() {
+            const finance = JSON.parse(localStorage.getItem('finance') || '[]');
+            const list = document.getElementById('financeList');
+            list.innerHTML = '<table><tr><th>Jumlah</th><th>Deskripsi</th><th>Tanggal</th></tr>' +
+                finance.map(f => `<tr><td>Rp ${f.amount}</td><td>${f.description}</td><td>${f.date}</td></tr>`).join('') + '</table>';
+            const total = finance.reduce((sum, f) => sum + f.amount, 0);
+            document.getElementById('totalBalance').textContent = total;
+        }
